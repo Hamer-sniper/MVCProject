@@ -1,0 +1,24 @@
+﻿@model IEnumerable<DataBook>
+@{
+    ViewData["Title"] = "MyMVCProject";
+}
+
+<div class="text-center" align="center">
+    <h1 class="display-4">Записная книжка</h1>
+</div>
+
+<div align="center">
+    <table border="1" border-collapse: collapse>
+        <tr><th>ID</th><th>Фамилия</th><th>Имя</th><th>Отчество</th></tr>
+        @foreach (var dataBook in Model)
+        {
+            <tr><td>
+                    <a class="flex-sm-fill text-sm-center nav-link" asp-controller="Home" asp-action="ConcreteDataBook" asp-route-dataBook=@dataBook.ID>@dataBook.ID</a>
+                </td>
+                <td>@dataBook.Surname</td>
+                <td>@dataBook.Name</td>
+                <td>@dataBook.MiddleName</td>
+            </tr>
+        }
+    </table>
+</div>
