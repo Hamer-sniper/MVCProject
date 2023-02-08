@@ -11,7 +11,7 @@
         /// <summary>
         /// ID.
         /// </summary>
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Фамилия.
@@ -48,15 +48,14 @@
         /// <summary>
         /// Конструктор со всеми параметрами.
         /// </summary>
-        /// <param name="iD"></param>
         /// <param name="surname"></param>
         /// <param name="name"></param>
         /// <param name="middleName"></param>
         /// <param name="telephoneNumber"></param>
         /// <param name="adress"></param>
-        public DataBook(int iD, string surname, string name, string middleName, string telephoneNumber, string adress, string note)
+        public DataBook(string surname, string name, string middleName, string telephoneNumber, string adress, string note)
         {
-            ID = iD;
+            //Id = Count;
             Surname = surname;
             Name = name;
             MiddleName = middleName;
@@ -71,7 +70,7 @@
         public DataBook()
         {         
             Count++;
-            ID = Count;
+            //Id = Count;
             Surname = $"Тестовая фамилия {Count}";
             Name = $"Тестовое имя {Count}";
             MiddleName = $"Тестовое отчество {Count}";

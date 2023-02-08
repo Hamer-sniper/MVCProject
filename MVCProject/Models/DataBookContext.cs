@@ -1,45 +1,34 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Markup;
+using Microsoft.EntityFrameworkCore;
 
 namespace MVCProject.Models
 {
-    public class DataBookContext
+    public class DataBookContext : DbContext
     {
-        /// <summary>
-        /// Данные.
-        /// </summary>
-        public static List<DataBook> MyData { get; set; } = new List<DataBook>();
+        public DbSet<DataBook> DataBook { get; set; }
 
-        static DataBookContext()
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            GenerateDB();
+            optionsBuilder.UseSqlServer(GetConnectionString());
         }
 
-        /// <summary>
-        /// Создать тестовую базу данных.
-        /// </summary>
-        /// <returns>Список с данными</returns>
-        public static void GenerateDB()
+        private static string GetConnectionString()
         {
-            for (int i = 1; i <= 100; i++)
-                MyData.Add(new DataBook());
-        }
-
-        /// <summary>
-        /// Получить базу данных.
-        /// </summary>
-        /// <returns>Список с данными</returns>
-        public static List<DataBook> GetMyDB()
-        {
-            return MyData;
-        }
-
-        /// <summary>
-        /// Получить запись по Id.
-        /// </summary>
-        /// <returns>DataBook</returns>
-        public static DataBook GetByID(int id)
-        {
-            return MyData.FindAll(d => d.ID == id).FirstOrDefault();
+            Microsoft.Data.SqlClient.SqlConnectionStringBuilder sqlCon = new Microsoft.Data.SqlClient.SqlConnectionStringBuilder()
+            {
+                DataSource = @"(localdb)\MSSQLLocalDB",
+                InitialCatalog = @"MSSQLLocalDemo",
+                IntegratedSecurity = true,
+                UserID = "sa",
+                Password = "123",
+                Pooling = false
+            };
+            return sqlCon.ConnectionString;
         }
     }
 }
